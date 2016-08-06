@@ -51,6 +51,8 @@ console.log('Model Task is created');
 
 //display all tasks
 router.get('/tasks/:user', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   var received_user = req.params.user;
   Task.find( { user: received_user },function(err, tasks) {
     if (err) return console.error(err);
