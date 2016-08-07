@@ -13,6 +13,7 @@ var mongodb_database = process.env.DB;
 router.get('/', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "*");
   res.render('index', { title: 'Task Manager for Priority' });
 });
 
@@ -55,6 +56,7 @@ console.log('Model Task is created');
 router.get('/tasks/:user', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "*");
   var received_user = req.params.user;
   Task.find( { user: received_user },function(err, tasks) {
     if (err) return console.error(err);
@@ -73,6 +75,7 @@ router.get('/tasks/:user', function(req, res, next) {
 router.get('/task/:id', function(req, res){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "*");
   var received_id = req.params.id;
   Task.find( { _id: received_id }, function(err, task) {
     if (err) return console.error(err);
@@ -87,12 +90,21 @@ router.get('/task/:id', function(req, res){
 });
 
 
+//Dealing with CORS
+router.options('/task', function(req, res) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.setHeader('Access-Control-Allow-Methods', "*");
+    //res.setHeader("Access-Control-Allow-Headers", "*");
+    res.end();
+});
+
 //Add a new task
 router.post('/task', function(req,res) {
 
-   res.header("Access-Control-Allow-Origin", "*");
-   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "*");
 
    if (connectionStatus === 'connected') {
       console.log('Trying to add a new task');
@@ -126,12 +138,23 @@ router.post('/task', function(req,res) {
 });
 
 
+//Dealing with CORS
+router.options('/task', function(req, res) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    //res.setHeader('Access-Control-Allow-Methods', "*");
+    res.setHeader('Access-Control-Allow-Methods', "GET,PUT,POST,DELETE");
+    res.end();
+});
+
+
 //Update a given task
 router.put('/task', function(req, res) {
 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "Origin, X-Requested-With, Content-Type, Accept");
+    //res.header("Access-Control-Allow-Methods", "*");
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
 
   var received_id = req.body.id;
   console.log('received_id: ' + received_id);
@@ -176,6 +199,7 @@ router.delete('/task', function(req, res) {
 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "*");
 
   var received_id = req.body.id;
   console.log('received_id: ' + received_id);
