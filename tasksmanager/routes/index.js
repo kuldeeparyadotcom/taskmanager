@@ -11,7 +11,9 @@ var mongodb_database = process.env.DB;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.render('index', { title: 'Task Manager for Priority' });
 });
 
 //provide credentials like
@@ -69,6 +71,8 @@ router.get('/tasks/:user', function(req, res, next) {
 
 //Provide details of a specific task
 router.get('/task/:id', function(req, res){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   var received_id = req.params.id;
   Task.find( { _id: received_id }, function(err, task) {
     if (err) return console.error(err);
@@ -85,6 +89,11 @@ router.get('/task/:id', function(req, res){
 
 //Add a new task
 router.post('/task', function(req,res) {
+
+   res.header("Access-Control-Allow-Origin", "*");
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
    if (connectionStatus === 'connected') {
       console.log('Trying to add a new task');
       console.log(req.body);
@@ -119,6 +128,11 @@ router.post('/task', function(req,res) {
 
 //Update a given task
 router.put('/task', function(req, res) {
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "Origin, X-Requested-With, Content-Type, Accept");
+
   var received_id = req.body.id;
   console.log('received_id: ' + received_id);
 
@@ -159,6 +173,10 @@ router.put('/task', function(req, res) {
 
 //Delete a given task
 router.delete('/task', function(req, res) {
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
   var received_id = req.body.id;
   console.log('received_id: ' + received_id);
   
