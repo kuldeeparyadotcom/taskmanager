@@ -1,1 +1,1 @@
-sudo docker bulid -t priority_taskmanager:0.1
+sudo docker build -t priority_taskmanager:1.0 .

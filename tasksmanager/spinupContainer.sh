@@ -1,1 +1,1 @@
-sudo docker run -e "HOST=192.168.55.55" -e "MONGOPORT:7011" --name priority_taskmanager -p 7012:3000 -d priority_taskmanager:0.1
+sudo docker run -e "HOST=54.165.199.197" -e "MONGOPORT:27017" --name priority_taskmanager -p 3000:3000 priority_taskmanager:1.0
