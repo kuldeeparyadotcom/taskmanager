@@ -1,0 +1,15 @@
+version: '2'
+services:
+  priority_db:
+    image: 54.173.146.100/kd/mongo
+    ports:
+    - "27017:27017"
+  priority_taskmanager:
+    image: 54.173.146.100/kd/priority_taskmanager
+    ports:
+    - "3000:3000"
+    depends_on:
+    - priority_db
+    environment:
+    -  HOST=priority_db
+    -  MONGOPORT=27017
